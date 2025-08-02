@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Days in Month Checker</title>
+  <style>
+    body {
+      background-color: #C2F2FF;
+      font-family: "Segoe UI", sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+    h2 {
+      font-size: 25px;
+      color: #004B6B;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 140px;
+      padding: 6px;
+      font-size: 18px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 18px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 25px;
+      font-weight: bold;
+      background-color: #004B6B;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #333;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 11px;
+      font-style: italic;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="how.gif" alt="Class Art" />
+  <h2>📆 How many days?</h2>
+
+  <label for="year">Year:</label>
+  <input type="number" id="year" placeholder="e.g. 2024" />
+
+  <label for="month">Month (1-12):</label>
+  <input type="number" id="month" placeholder="e.g. 2" />
+
+  <div><button onclick="showResult()">Get Days</button></div>
+
+  <div class="result" id="output">...</div>
+
+  <div style="height:45px;"></div>
+<footer class="mt-2" style="color:gray; font-style:italic; font-size:14px;">
+@Koleksi77
+</footer>
+
+  <script>
+    function speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "en-GB"; // Switch to "en-US" if preferred
+      speechSynthesis.speak(utterance);
+    }
+
+    function isLeap(year) {
+      return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+    }
+
+    function daysInMonth(year, month) {
+      const monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+      return (month === 2 && isLeap(year)) ? 29 : monthDays[month - 1];
+    }
+
+    function showResult() {
+      const year = parseInt(document.getElementById("year").value);
+      const month = parseInt(document.getElementById("month").value);
+      const output = document.getElementById("output");
+
+      if (isNaN(year) || isNaN(month) || month < 1 || month > 12) {
+        const msg = "Invalid input";
+        output.textContent = msg;
+        speak(msg);
+      } else {
+        const days = daysInMonth(year, month);
+        const msg = `${days} days`;
+        output.textContent = msg;
+        speak(msg);
+      }
+    }
+  </script>
+
+</body>
+</html>
